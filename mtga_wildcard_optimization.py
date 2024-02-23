@@ -14,6 +14,8 @@ def main():
     decks = get_decks_in_folder()
     cards_to_craft = find_cards_to_craft(decks)
     wildcards = get_wildcards_needed(cards_to_craft)
+
+    cards_to_craft.sort(key=lambda card: card["occurence"])
     debug.print_dict_as_json(cards_to_craft)
     debug.print_dict_as_json(wildcards) 
     
@@ -84,7 +86,7 @@ def find_cards_to_craft(decks):
         card["missing"] = get_missing_quantity(card)    
         card["lowest_rarity"] = get_lowest_rarity(card)
 
-    return [convert_to_craft(card) for card in merged_decks if card["missing"] > 0]
+    return [convert_to_craft(card) for card in merged_decks if card["missing"] > 0 ]
     
 def convert_to_craft(card):
     return {

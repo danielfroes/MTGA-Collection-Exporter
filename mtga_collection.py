@@ -1,11 +1,14 @@
 
 import requests
 import json
+import deamon_service as deamon
 
 class MtgaCollection:
     URL = "http://localhost:6842/cards"
-
+    deamon_service = deamon.DeamonService()    
+    
     def __init__(self):
+        self.deamon_service.open()
         response = request(self.URL)
         self.cards_owned = response["cards"]
         self.cards_by_arenaId = {card["grpId"] : card for card in self.cards_owned}
